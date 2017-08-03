@@ -1,3 +1,71 @@
+This project is a bash script that manages automatic downloading of GCODE from a web server and printing that to a 3d print.
+
+It includes several gcode files in the root of this directory that manage the automatic retrival of jobs and the controll of a 3d printers automatic ejection mechanisom. 
+
+A regular paper printer is required to make this work with out modification.
+The paper printer is used to create the dispobal print bed for the 3d printed object.
+It also prints out the details for the print job such as user name and job ID.
+
+
+The script can be modified and the gcode files edited to make them specific to your printer.
+The top of the script contains the following variables that must be set.
+
+You must change the name of the printer and the web server URL.
+You can also set the max size for your printer.
+The print queue will check the max size to dermin if there are any obs that can be given to the printer.
+
+`
+printerServer='http://AUTODROP3D.COM/printerinterface/gcode'
+printerName='JOHNSUCKS'
+printerColor='RED'
+printerMaterial='PLA'
+SIZEX='50'
+SIZEY='50'
+SIZEZ='300'
+`
+
+
+There is still some work to do as far as making an nice install script that can be run on the pi.
+The install script will have to install the cups printer services and the HP drivers as HP printers were the only ones I was able to get working on the rasbery pi.
+
+
+The rest of the readme file here is specific to printrun. 
+Print run is the python package that provides the actual gcode sender.
+It runs on linux and is compadible with the rasbery pi.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#############################################################################
+This is all pronter face print run stuff from the original clone. 
+I do want to thank these people for making the who command line gocode sender that works on linux including the rasbery pi. 
+
+
 Printrun consists of printcore, pronsole and pronterface, and a small collection of helpful scripts.
 
   * printcore.py is a library that makes writing reprap hosts easy
