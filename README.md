@@ -1,4 +1,29 @@
-This project is a bash script that manages automatic downloading of GCODE from a web server and printing that to a 3d print.
+This project is a bash script that manages automatic downloading of GCODE from a web server and printing that to a 3d print. It uses the command line GCODE sender from pronterface. 
+
+
+The files we have added are as follows:
+AutoDrop.sh
+start.sh
+stop.sh
+
+start1.gcode
+start2.gcode
+end.gcode
+
+
+AutoDrop.sh is the script that retrives GCODe from the web server and manages the printing process.
+Start.sh is the file to start the AutoDrop.sh script in the background. It will run untill the stop.sh is run.
+
+The GCODE files are broken up to make it possible to controll the 3d printers auto ejection system.
+
+start1.gcode opens the trap door all the way ensuring the print bead is clear befor closing and opeing it just enoughf for the 2d printer to put a sheet of paper on the print bed.
+
+start2.gcode fully close the trap door.
+
+The download file from the web server is run after start2.gcode. It will be simple to modify the bash script to make it work with other devices. 
+
+end.gcode fully opens the trap door.
+
 
 It includes several gcode files in the root of this directory that manage the automatic retrival of jobs and the controll of a 3d printers automatic ejection mechanisom. 
 
