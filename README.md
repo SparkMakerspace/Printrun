@@ -14,7 +14,7 @@ You must change the name of the printer and the web server URL.
 You can also set the max size for your printer.
 The print queue will check the max size to dermin if there are any obs that can be given to the printer.
 
-`
+```python
 printerServer='http://AUTODROP3D.COM/printerinterface/gcode'
 printerName='JOHNSUCKS'
 printerColor='RED'
@@ -22,7 +22,7 @@ printerMaterial='PLA'
 SIZEX='50'
 SIZEY='50'
 SIZEZ='300'
-`
+```
 
 
 There is still some work to do as far as making an nice install script that can be run on the pi.
