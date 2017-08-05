@@ -3,11 +3,15 @@ This project is a bash script that manages automatic downloading of GCODE from a
 
 The files we have added are as follows:
 AutoDrop.sh
+
 start.sh
+
 stop.sh
 
 start1.gcode
+
 start2.gcode
+
 end.gcode
 
 
