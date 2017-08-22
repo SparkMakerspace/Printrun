@@ -6,8 +6,10 @@ uploads
 .DS_Store
 .vagrant
 prontserve-env
+printpage.txt
 printrun/gcoder_line.c
 printrun/gcoder_line.so
 .project
 .pydevproject
-
+wget-log*
+download.gcode

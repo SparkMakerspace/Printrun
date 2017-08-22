@@ -4,12 +4,12 @@
 #These are all the settings for the printer. Change these 
 
 printerServer='http://AUTODROP3D.COM/printerinterface/gcode'
-printerName='JOHNSUCKS'
+printerName='HARAMBE3D'
 printerColor='RED'
 printerMaterial='PLA'
-SIZEX='50'
-SIZEY='50'
-SIZEZ='300'
+SIZEX='150'
+SIZEY='150'
+SIZEZ='150'
 
 
 function jumpto
@@ -49,29 +49,29 @@ exit
 PrintThePart:
 PrintJobID=`sed -n '3p' download.gcode`
 
-
-./printcore.py -b 76800 -v '/dev/ttyS0' start1.gcode
+#./printcore.py -b 115200 -v '/dev/ttyUSB0' start.gcode
 sleep 10
 #this is to print the file
-lpr printpage.txt
+#lpr printpage.txt
 
 
-CheckPrintStaus:
-figlet Wating For Printer
+#CheckPrintStaus:
+#figlet Wating For Printer
 
-PrintStatus="$(lpq -a)"
-if test "$PrintStatus" != "no entries" ; then
-	jumpto CheckPrintStaus
-fi
+#PrintStatus="$(lpq -a)"
+#if test "$PrintStatus" != "no entries" ; then
+#	jumpto CheckPrintStaus
+#fi
 
 
 sleep 10
 
-./printcore.py -b 76800 -v '/dev/ttyS0' start2.gcode
-./printcore.py -b 76800 -v '/dev/ttyS0' download.gcode
+./printcore.py -b 115200 -v '/dev/ttyUSB0' start.gcode
+sleep 25
+./printcore.py -b 115200 -v '/dev/ttyUSB0' download.gcode
 sleep 10
 
-./printcore.py -b 76800 -v '/dev/ttyS0' end.gcode
+./printcore.py -b 115200 -v '/dev/ttyUSB0' end.gcode
 
 
 #report Print Job Completed
