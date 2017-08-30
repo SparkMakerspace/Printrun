@@ -2,14 +2,17 @@
 # include this boilerplate
 
 #These are all the settings for the printer. Change these 
-
+date +'Script initialized at %Y-%m-%d-%H%M' >> /home/pi/3d.log
+cd /home/pi/Printrun
 printerServer='http://AUTODROP3D.COM/printerinterface/gcode'
 printerName='JOHNSUCKS'
 printerColor='RED'
 printerMaterial='PLA'
-SIZEX='50'
-SIZEY='50'
+SIZEX='100'
+SIZEY='100'
 SIZEZ='300'
+SERIALPORT='/dev/ttyS0'
+SERIALSPEED='76800'
 
 
 function jumpto
@@ -25,6 +28,7 @@ TheTop:
 clear
 figlet AutoDrop3d.com
 rm -f download.gcode
+date +'GCode download started at %Y-%m-%d-%H%M' >> /home/pi/3d.log
 wget -O download.gcode "$printerServer?name=$printerName&Color=$printerColor&material=$printerMaterial&SizeX=$SIZEX&SizeY=$SIZEY&SizeZ=$SIZEZ"
 rm -f printpage.txt
 sed -n '2,10p' download.gcode >> printpage.txt
@@ -35,6 +39,7 @@ echo "Printed on $(date)" >> printpage.txt
 read -r PrintQueueInstruction<download.gcode
 
 if test "$PrintQueueInstruction" == ";start" ; then
+	date +'Started print at %Y-%m-%d-%H%M'  >> /home/pi/3d.log
 	clear
 	figlet Starting Print
 	jumpto PrintThePart
@@ -49,32 +54,22 @@ exit
 PrintThePart:
 PrintJobID=`sed -n '3p' download.gcode`
 
-
-./printcore.py -b 76800 -v '/dev/ttyS0' start1.gcode
-sleep 10
-#this is to print the file
-lpr printpage.txt
+SERIALPORT='/dev/ttyS0'
+SERIALSPEED='76800'
 
 
-CheckPrintStaus:
-figlet Wating For Printer
+./printcore.py -b $SERIALSPEED -v $SERIALPORT start.gcode
 
-PrintStatus="$(lpq -a)"
-if test "$PrintStatus" != "no entries" ; then
-	jumpto CheckPrintStaus
-fi
-
-
+./printcore.py -b $SERIALSPEED -v $SERIALPORT download.gcode
 sleep 10
 
-./printcore.py -b 76800 -v '/dev/ttyS0' start2.gcode
-./printcore.py -b 76800 -v '/dev/ttyS0' download.gcode
-sleep 10
-
-./printcore.py -b 76800 -v '/dev/ttyS0' end.gcode
+./printcore.py -b $SERIALSPEED -v $SERIALPORT end.gcode
 
 
 #report Print Job Completed
 wget -O download.gcode "$printerServer?jobID=${PrintJobID:1}&stat=Done"
+date +'%Y-%m-%d-%H%M-print_finished' >> /home/pi/3d.log
+sleep 5
 
+sudo reboot
 jumpto TheTop
