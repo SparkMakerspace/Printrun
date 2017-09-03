@@ -18,12 +18,11 @@ sudo apt-get install screen software-properties-common git python-serial python-
 # install python
 
 # create directory for working files
-mkdir /autodrop
-cp -R . /autodrop/ #this won't work.
-cd /autodrop
+cd /
+
 
 # get Printrun from Github and compile.
-git clone https://github.com/kliment/Printrun.git
+git clone https://github.com/SparkMakerspace/Printrun.git autodrop
 cd Printrun
 pip install -r requirements.txt
 python setup.py build_ext --inplace
@@ -46,6 +45,5 @@ git pull origin
 cp /autodrop/start.sh /etc/init.d/autodrop-start.sh
 chmod 755 /etc/init.d/autodrop-start.sh
 sudo update-rc.d autodrop-start.sh defaults
-chmod +x /autodrop/start.sh
-chmod +x /autodrop/stop.sh
-chmod +w /autodrop/download.gcode
+chmod +x /autodrop/*.sh
+
